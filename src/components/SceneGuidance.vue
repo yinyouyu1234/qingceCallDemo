@@ -27,7 +27,6 @@ import AgoraRTC from "agora-rtc-sdk";
 export default {
   name: "SceneGuidance",
   components: {
-
   },
   data() {
     return {
@@ -199,7 +198,6 @@ export default {
       _this.client.on("peer-leave", function(evt) {
         var stream = evt.stream;
         console.log(stream.streamId, 111111);
-        alert('视频结束！')
         stream.stop();
         _this.leave();
       });
