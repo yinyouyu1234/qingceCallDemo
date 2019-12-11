@@ -131,19 +131,19 @@ export default {
               localStream.init(
                 function() {
                   console.log("getUserMedia successfully");
-                  localStream.play("agora_local");
+                  // localStream.play("agora_local");
 
-                  _this.client.publish(localStream, function(err) {
-                    console.log("Publish local stream error: " + err);
-                  });
+                  // _this.client.publish(localStream, function(err) {
+                  //   console.log("Publish local stream error: " + err);
+                  // });
 
-                  _this.client.on("stream-published", function(evt) {
-                    console.log("Publish local stream successfully");
-                  });
+                  // _this.client.on("stream-published", function(evt) {
+                  //   console.log("Publish local stream successfully");
+                  // });
 
-                  _this.client.publish(localStream, function(err) {
-                    console.log("Publish local stream error: " + err);
-                  });
+                  // _this.client.publish(localStream, function(err) {
+                  //   console.log("Publish local stream error: " + err);
+                  // });
                 },
                 function(err) {
                   console.log("getUserMedia failed", err);
@@ -160,7 +160,7 @@ export default {
         }
       );
 
-      var channelKey = "";
+      var channelKey = "5ff80b05a5bb45eeadcda871371d4b45";
       _this.client.on("error", function(err) {
         console.log("Got error msg:", err.reason);
         if (err.reason === "DYNAMIC_KEY_TIMEOUT") {
@@ -178,10 +178,21 @@ export default {
 
       _this.client.on("stream-added", function(evt) {
         var stream = evt.stream;
-        console.log("New stream added: " + stream.getId());
+        console.log("New stream added:1111 " + stream.getId());
         console.log("Subscribe ", stream);
         _this.client.subscribe(stream, function(err) {
-          console.log("Subscribe stream failed", err);
+          console.log("Subscribe stream failed11111", err);
+        });
+         stream.on("player-status-change", function(evt){
+           console.log(evt, 999999999)
+            if (evt.isErrorState && evt.status === "paused"){
+                console.error(`Stream is paused unexpectedly. Trying to resume...`);
+                stream.resume().then(function(){
+                    console.log(`Stream is resumed successfully`);
+                }).catch(function(e){
+                    console.error(`Failed to resume stream. Error ${e.name} Reason ${e.message}`);
+                });
+            }
         });
       });
 
