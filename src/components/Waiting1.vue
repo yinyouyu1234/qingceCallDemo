@@ -34,7 +34,7 @@ export default {
         session = signal.login(1, token, 10, 30)
         this.session = session
         window.onbeforeunload = (event) => {
-          // session.logout()
+          session.logout()
           return undefined
         }
         session.onLoginSuccess = function () {
@@ -56,7 +56,7 @@ export default {
             })
         }
         session.onLogout = function (reson) {
-          console.log(reson, '退出  登出')
+          // console.log(reson, '退出  登出')
 
         }
       }, 1000);

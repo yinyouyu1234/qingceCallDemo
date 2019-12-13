@@ -13,11 +13,11 @@
     <div v-show="false" id="video" style="margin:0 auto;">
       <div id="agora_local" style="float:right;width:210px;height:147px;display:inline-block;"></div>
     </div>
-
+    <button style="opacity: 0;position:absolute" id="btn">点击</button>
       <div id="video" style="margin:0 auto;">
         <div
           id="agora_remote"
-          style="width:100%;height:100%;display:inline-block;background:	#F0FFFF;"
+          style="width:100%;height:100vh;display:inline-block;background:	#F0FFFF;"
         ></div>
       </div>
   </div>
@@ -190,7 +190,13 @@ export default {
                 stream.resume().then(function(){
                     console.log(`Stream is resumed successfully`);
                 }).catch(function(e){
-                    console.error(`Failed to resume stream. Error ${e.name} Reason ${e.message}`);
+                  console.log(e)
+                    console.error(`Failed to resume stream. Error ${e} Reason ${e.message}`);
+                    console.log(document.querySelectorAll('video'))
+                    document.querySelectorAll('video')[0].muted = true;
+                    setTimeout(() => {
+                      document.querySelectorAll('video')[0].muted = false;
+                    }, 300)
                 });
             }
         });
@@ -237,6 +243,9 @@ export default {
 };
 </script>
 <style>
+.scene-guidance-wrapper {
+  height: 100vh;
+}
 .top-info--right {
   width: 500px;
   padding-left: 20px;
